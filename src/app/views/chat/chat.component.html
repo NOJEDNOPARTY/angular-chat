@@ -1,0 +1,41 @@
+<div class="main-section chat-section" *ngFor="let chat of chat;">
+  <div class="wrapper">
+    <div class="main-head">
+      <div class="chat-head">
+        <div class="chat-head-back" (click)="removeBodyClass()"><img src="./assets/images/back.svg" alt="images"></div>
+        <div class="chat-head-content">
+          <div class="chat-head-img">
+            <img src="{{chat.img}}" alt="image">
+          </div>
+          <div class="chat-head-info">
+            <div class="chat-head-name">{{chat.name}}</div>
+            <div class="chat-head-seen">{{chat.lastSeen}}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="main-content">
+      <div class="chat">
+
+        <div class="chat-field">
+
+          <div class="chat-message" *ngFor="let chatObj of chat.chatObj;" [class.chat-message-in]="chatObj.messageTrigger === true" [class.chat-message-out]="chatObj.messageTrigger === false">
+            <div class="chat-message-content">
+              <p>{{chatObj.message}}</p>
+              <div class="chat-message-time">{{chatObj.messageTime}}</div>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="chat-form">
+          <form (submit)="addMessage($event);">
+            <input  type="text" [(ngModel)]="newMessageTitle" (keyup.enter)="newMessageTitle=''" class="chat-form-field" name="message" placeholder="Aa">
+            <button type="submit"  class="chat-form-btn" [disabled]="newMessageTitle===''"><img src="./assets/images/top.svg" alt="images"></button>
+          </form>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>

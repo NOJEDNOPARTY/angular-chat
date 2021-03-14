@@ -1,0 +1,23 @@
+<div class="main-section chat-list-section">
+  <div class="wrapper">
+    <div class="main-head">
+      <div class="title">Chats</div>
+    </div>
+    <div class="main-content">
+      <div class="chat-list">
+
+        <div class="chat-list-item" *ngFor="let chatList of chatList" (click)="showChatByItem(chatList);addBodyClass();">
+          <div class="chat-list-item-img"><img src="{{chatList.img}}" alt="image"></div>
+          <div class="chat-list-item-info">
+            <div class="chat-list-item-head">
+              <div class="chat-list-item-name">{{chatList.name}}</div>
+              <div class="chat-list-item-time">{{chatList.messageTime}}</div>
+            </div>
+            <div class="chat-list-item-message">{{chatList.lastMessage}}</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
