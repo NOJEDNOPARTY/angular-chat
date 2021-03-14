@@ -33,19 +33,6 @@ body {overflow: hidden;}
   }
 }
 
-.chat-section {
-  display: none;
-}
-
-body.show-chat .chat-section {
-  display: block;
-}
-
-body.show-chat .chat-list-section {
-  display: none;
-}
-
-
 @media (max-width: 450px) {
   .main-head {
     padding: 0 15px 20px;

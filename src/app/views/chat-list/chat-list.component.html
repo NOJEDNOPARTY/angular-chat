@@ -8,7 +8,7 @@
         <div
           class="chat-list-item"
           *ngFor="let chatList of chatList"
-          (click)="showChatByItem(chatList); addBodyClass()"
+          (click)="showChatByItem(chatList);"
         >
           <div class="chat-list-item-img">
             <img src="{{ chatList.img }}" alt="image" />
@@ -16,7 +16,7 @@
           <div class="chat-list-item-info">
             <div class="chat-list-item-head">
               <div class="chat-list-item-name">{{ chatList.name }}</div>
-              <div class="chat-list-item-time">{{ chatList.messageTime }}</div>
+              <div class="chat-list-item-time">{{ getLastMessageTime(chatList.id) }}</div>
             </div>
             <div class="chat-list-item-message">
               {{ getLastMessage(chatList.id) }}

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import { DataHandlerService } from '../../service/data-handler.service';
 import { Chat } from '../../model/Chat';
 
@@ -7,22 +7,26 @@ import { Chat } from '../../model/Chat';
   templateUrl: './chat.component.html',
   styleUrls: ['./chat.component.css'],
 })
+
 export class ChatComponent implements OnInit {
-  chat: Chat;
-  newMessageTitle: '';
-  messageObj: any;
+  public chat: Chat;
+  public newMessageTitle: '';
+  public messageObj: any;
+  @Output() onClick = new EventEmitter();
 
   constructor(private dataHandler: DataHandlerService) {}
 
-  removeBodyClass(): void {
-    document.body.classList.remove('show-chat');
+  public hideChat(): void {
+    this.onClick.emit();
   }
 
-  addMessage(event): void {
+  public addMessage(event): void {
     this.messageObj = {
       message: this.newMessageTitle,
       messageTime:
-        new Date().getHours() +
+        (new Date().getHours() < 10
+          ? '0' + new Date().getHours()
+          : new Date().getHours()) +
         ':' +
         (new Date().getMinutes() < 10
           ? '0' + new Date().getMinutes()
@@ -32,18 +36,12 @@ export class ChatComponent implements OnInit {
     this.chat.chatObj.push(this.messageObj);
     this.newMessageTitle = '';
     this.dataHandler.scrollToTheBottomOfChat();
-    this.dataHandler.chatListSubject.value[
-      this.chat.id - 1
-    ].messageTime = this.messageObj.messageTime;
-    this.dataHandler.chatListSubject.value[
-      this.chat.id - 1
-    ].lastMessage = this.messageObj.message;
     event.preventDefault();
   }
 
-  ngOnInit(): void {
+  public ngOnInit(): void {
     this.dataHandler.activeChatSubject.subscribe((chat) => (this.chat = chat));
-    const timeout = setTimeout(() => {
+    setTimeout(() => {
       this.dataHandler.scrollToTheBottomOfChat();
     }, 150);
   }
